@@ -1,6 +1,7 @@
 //=============================================================================
 //
-// ÉGÅ[ÉÄèàóù [Aim.cpp]
+// „Ç®„Éº„É†Âá¶ÁêÜ [Aim.cpp]
+//
 // Author : lizeyu
 //
 //=============================================================================
@@ -12,31 +13,31 @@
 
 
 //*****************************************************************************
-// É}ÉNÉçíËã`
+// „Éû„ÇØ„É≠ÂÆöÁæ©
 //*****************************************************************************
 
 
 //*****************************************************************************
-// ÉvÉçÉgÉ^ÉCÉvêÈåæ
+// „Éó„É≠„Éà„Çø„Ç§„ÉóÂÆ£Ë®Ä
 //*****************************************************************************
 HRESULT MakeVertexAim(void);
 void SetTextureAim(int pno, int cntPattern);					// 
-void SetVertexAim(int pno);										// í∏ì_ÇÃåvéZèàóù
+void SetVertexAim(int pno);										// È†ÇÁÇπ„ÅÆË®àÁÆóÂá¶ÁêÜ
 
 
 
 //*****************************************************************************
-// ÉOÉçÅ[ÉoÉãïœêî
+// „Ç∞„É≠„Éº„Éê„É´Â§âÊï∞
 //*****************************************************************************
-static LPDIRECT3DTEXTURE9		g_pD3DTextureAim = NULL;		// ÉeÉNÉXÉ`ÉÉÇ÷ÇÃÉ|ÉCÉìÉ^
+static LPDIRECT3DTEXTURE9		g_pD3DTextureAim = NULL;		// „ÉÜ„ÇØ„Çπ„ÉÅ„É£„Å∏„ÅÆ„Éù„Ç§„É≥„Çø
 
 AIM								aim[AIM_MAX];
 
-float							g_fRadiusAim;					// É|ÉäÉSÉìÇÃîºåa
-float							g_fBaseAngleAim;				// É|ÉäÉSÉìÇÃäpìx
+float							g_fRadiusAim;					// „Éù„É™„Ç¥„É≥„ÅÆÂçäÂæÑ
+float							g_fBaseAngleAim;				// „Éù„É™„Ç¥„É≥„ÅÆËßíÂ∫¶
 
 //=============================================================================
-// èâä˙âªèàóù
+// ÂàùÊúüÂåñÂá¶ÁêÜ
 //=============================================================================
 HRESULT InitAim()
 {
@@ -59,20 +60,20 @@ HRESULT InitAim()
 		aim->polygon.hitSize[1] = AIM_SIZE_Y;
 
 		D3DXVECTOR2 temp = D3DXVECTOR2(AIM_SIZE_X, AIM_SIZE_Y);
-		aim->polygon.Radius = D3DXVec2Length(&temp);					// ÉGÅ[ÉÄÇÃîºåaÇèâä˙âª
-		aim->polygon.Angle = atan2f(AIM_SIZE_Y, AIM_SIZE_X);			// ÉGÅ[ÉÄÇÃäpìxÇèâä˙âª
+		aim->polygon.Radius = D3DXVec2Length(&temp);					// „Ç®„Éº„É†„ÅÆÂçäÂæÑ„ÇíÂàùÊúüÂåñ
+		aim->polygon.Angle = atan2f(AIM_SIZE_Y, AIM_SIZE_X);			// „Ç®„Éº„É†„ÅÆËßíÂ∫¶„ÇíÂàùÊúüÂåñ
 
-		aim->polygon.Texture = g_pD3DTextureAim;						// ÉeÉNÉXÉ`ÉÉèÓïÒ
+		aim->polygon.Texture = g_pD3DTextureAim;						// „ÉÜ„ÇØ„Çπ„ÉÅ„É£ÊÉÖÂ†±
 	}
 
-	// í∏ì_èÓïÒÇÃçÏê¨
+	// È†ÇÁÇπÊÉÖÂ†±„ÅÆ‰ΩúÊàê
 	MakeVertexAim();
 
 
-	// ÉeÉNÉXÉ`ÉÉÇÃì«Ç›çûÇ›
-	D3DXCreateTextureFromFile(pDevice,		// ÉfÉoÉCÉXÇÃÉ|ÉCÉìÉ^
-		TEXTURE_AIM_NORMAL,				// ÉtÉ@ÉCÉãÇÃñºëO
-		&g_pD3DTextureAim);					// ì«Ç›çûÇﬁÉÅÉÇÉäÇÃÉ|ÉCÉìÉ^
+	// „ÉÜ„ÇØ„Çπ„ÉÅ„É£„ÅÆË™≠„ÅøËæº„Åø
+	D3DXCreateTextureFromFile(pDevice,		// „Éá„Éê„Ç§„Çπ„ÅÆ„Éù„Ç§„É≥„Çø
+		TEXTURE_AIM_NORMAL,				// „Éï„Ç°„Ç§„É´„ÅÆÂêçÂâç
+		&g_pD3DTextureAim);					// Ë™≠„ÅøËæº„ÇÄ„É°„É¢„É™„ÅÆ„Éù„Ç§„É≥„Çø
 
 
 
@@ -80,19 +81,19 @@ HRESULT InitAim()
 }
 
 //=============================================================================
-// èIóπèàóù
+// ÁµÇ‰∫ÜÂá¶ÁêÜ
 //=============================================================================
 void UninitAim(void)
 {
 	if (g_pD3DTextureAim != NULL)
-	{	// ÉeÉNÉXÉ`ÉÉÇÃäJï˙
+	{	// „ÉÜ„ÇØ„Çπ„ÉÅ„É£„ÅÆÈñãÊîæ
 		g_pD3DTextureAim->Release();
 		g_pD3DTextureAim = NULL;
 	}
 }
 
 //=============================================================================
-// çXêVèàóù
+// Êõ¥Êñ∞Âá¶ÁêÜ
 //=============================================================================
 void UpdateAim(void)
 {
@@ -102,18 +103,18 @@ void UpdateAim(void)
 	{
 
 		aim->polygon.rot.z = player->base.rot.z;
-		// ÉAÉjÉÅÅ[ÉVÉáÉì
+		// „Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥
 		aim->polygon.CountAnim++;
-		// ÉAÉjÉÅÅ[ÉVÉáÉìWaitÉ`ÉFÉbÉN
+		// „Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥Wait„ÉÅ„Çß„ÉÉ„ÇØ
 		if ((aim->polygon.CountAnim % TIME_ANIMATION_AIM) == 0)
 		{
-			// ÉpÉ^Å[ÉìÇÃêÿÇËë÷Ç¶
+			// „Éë„Çø„Éº„É≥„ÅÆÂàá„ÇäÊõø„Åà
 			aim->polygon.PatternAnim = (aim->polygon.PatternAnim + 1) % ANIM_PATTERN_AIM;
 
-			// ÉeÉNÉXÉ`ÉÉç¿ïWÇê›íË
+			// „ÉÜ„ÇØ„Çπ„ÉÅ„É£Â∫ßÊ®ô„ÇíË®≠ÂÆö
 			SetTextureAim(i, aim->polygon.PatternAnim);
 		}
-		SetVertexAim(i);	// í∏ì_ÇÃåvéZèàóù
+		SetVertexAim(i);	// È†ÇÁÇπ„ÅÆË®àÁÆóÂá¶ÁêÜ
 
 	}
 
@@ -124,7 +125,7 @@ void UpdateAim(void)
 }
 
 //=============================================================================
-// ï`âÊèàóù
+// ÊèèÁîªÂá¶ÁêÜ
 //=============================================================================
 void DrawAim(void)
 {
@@ -137,13 +138,13 @@ void DrawAim(void)
 		if (aim->bUse)
 		{
 
-			// í∏ì_ÉtÉHÅ[É}ÉbÉgÇÃê›íË
+			// È†ÇÁÇπ„Éï„Ç©„Éº„Éû„ÉÉ„Éà„ÅÆË®≠ÂÆö
 			pDevice->SetFVF(FVF_VERTEX_2D);
 
-			// ÉeÉNÉXÉ`ÉÉÇÃê›íË
+			// „ÉÜ„ÇØ„Çπ„ÉÅ„É£„ÅÆË®≠ÂÆö
 			pDevice->SetTexture(0, g_pD3DTextureAim);
 
-			// É|ÉäÉSÉìÇÃï`âÊ
+			// „Éù„É™„Ç¥„É≥„ÅÆÊèèÁîª
 
 
 			pDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, aim->polygon.vertexWk, sizeof(VERTEX_2D));
@@ -152,7 +153,7 @@ void DrawAim(void)
 }
 
 //=============================================================================
-// í∏ì_ÇÃçÏê¨
+// È†ÇÁÇπ„ÅÆ‰ΩúÊàê
 //=============================================================================
 HRESULT MakeVertexAim(void)
 {
@@ -162,24 +163,24 @@ HRESULT MakeVertexAim(void)
 	for (int i = 0; i < AIM_MAX; i++)
 	{
 		aim = GetAim(i);
-		// í∏ì_ÇÃåvéZèàóù
+		// È†ÇÁÇπ„ÅÆË®àÁÆóÂá¶ÁêÜ
 
-		// í∏ì_ç¿ïWÇÃê›íË	
+		// È†ÇÁÇπÂ∫ßÊ®ô„ÅÆË®≠ÂÆö	
 		SetVertexAim(i);
 
-		// rhwÇÃê›íË
+		// rhw„ÅÆË®≠ÂÆö
 		aim->polygon.vertexWk[0].rhw =
 			aim->polygon.vertexWk[1].rhw =
 			aim->polygon.vertexWk[2].rhw =
 			aim->polygon.vertexWk[3].rhw = 1.0f;
 
-		// îΩéÀåıÇÃê›íË
+		// ÂèçÂ∞ÑÂÖâ„ÅÆË®≠ÂÆö
 		aim->polygon.vertexWk[0].diffuse = D3DCOLOR_RGBA(255, 255, 255, 255);
 		aim->polygon.vertexWk[1].diffuse = D3DCOLOR_RGBA(255, 255, 255, 255);
 		aim->polygon.vertexWk[2].diffuse = D3DCOLOR_RGBA(255, 255, 255, 255);
 		aim->polygon.vertexWk[3].diffuse = D3DCOLOR_RGBA(255, 255, 255, 255);
 
-		// ÉeÉNÉXÉ`ÉÉç¿ïWÇÃê›íË
+		// „ÉÜ„ÇØ„Çπ„ÉÅ„É£Â∫ßÊ®ô„ÅÆË®≠ÂÆö
 		SetTextureAim(i, aim->polygon.PatternAnim);
 	}
 
@@ -187,11 +188,11 @@ HRESULT MakeVertexAim(void)
 }
 
 //=============================================================================
-// ÉeÉNÉXÉ`ÉÉç¿ïWÇÃê›íË
+// „ÉÜ„ÇØ„Çπ„ÉÅ„É£Â∫ßÊ®ô„ÅÆË®≠ÂÆö
 //=============================================================================
 void SetTextureAim(int pno, int cntPattern)
 {
-	// ÉeÉNÉXÉ`ÉÉç¿ïWÇÃê›íË
+	// „ÉÜ„ÇØ„Çπ„ÉÅ„É£Â∫ßÊ®ô„ÅÆË®≠ÂÆö
 	AIM *aim = GetAim(pno);
 
 	int x = cntPattern % TEXTURE_AIM_TYPE01_PATTERN_DIVIDE_X;
@@ -207,13 +208,13 @@ void SetTextureAim(int pno, int cntPattern)
 
 
 //=============================================================================
-// í∏ì_ç¿ïWÇÃê›íË
+// È†ÇÁÇπÂ∫ßÊ®ô„ÅÆË®≠ÂÆö
 //=============================================================================
 void SetVertexAim(int pno)
 {
 	AIM *aim = GetAim(pno);
 
-	// í∏ì_ç¿ïWÇÃê›íË
+	// È†ÇÁÇπÂ∫ßÊ®ô„ÅÆË®≠ÂÆö
 	aim->polygon.vertexWk[0].vtx.x = aim->polygon.pos.x - cosf(aim->polygon.Angle + aim->polygon.rot.z) * aim->polygon.Radius;
 	aim->polygon.vertexWk[0].vtx.y = aim->polygon.pos.y - sinf(aim->polygon.Angle + aim->polygon.rot.z) * aim->polygon.Radius;
 	aim->polygon.vertexWk[0].vtx.z = 0.0f;
